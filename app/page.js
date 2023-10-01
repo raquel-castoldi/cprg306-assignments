@@ -9,6 +9,7 @@ export default function Home() {
       <h1 className="font:64">CPRG 306: Web Dev 2 - Assignments</h1>
       <StudentInfo />
       <Link href={`/week2`} className="hover:text-pink-300 text-sm "> Week 2 </Link>
+      <Link href={`/week3`} className="hover:text-pink-300 text-sm "> Week 3 </Link>
     </main>
   );
 }
