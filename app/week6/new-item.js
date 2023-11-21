@@ -4,43 +4,41 @@ import { useState } from "react";
 export default function NewItem({ onAddItem }) {
     const [name, setName] = useState("");
     const [quantity, setQuantity] = useState(1);
-    const [category, setCategory] = useState("Produce");
+    const [category, setCategory] = useState("produce");
 
-    const handleSubmit = () => {
-        item.PreventDefault();
-
-        const newEvent = {
-            name,
-            quantity,
-            category,
-        };
-        console.log(newItem);
-
-        setItemCreated(true);
-
-        setName("");
-        setQuantity("");
-        setCategory("");
-
-
-        setItemCreated(false);
+    const handleNameChange = (event) => {
+        setName(event.target.value);
     };
 
-    const handleNameChange = (item) => {
-        setName(item.target.value);
-      };
+    const handleQuantityChange = (event) => {
+        const parseInput = parseInt(event.target.value);
 
-      const handleQuantityChange = (item) => {
-        setQuantity(item.target.value);
-      };
+        if (!isNaN(parseInput)) {
+            setQuantity(parseInput);
+        }
+    };
 
-      const handleCategoryChange = (item) => {
-        setCategory(item.target.value);
-      };
+    const handleCategoryChange = (event) => {
+        setCategory(event.target.value);
+    };
+
+    const handleSubmit = (event) => { 
+        event.preventDefault();
+
+        const id = Math.random();
+        const item = {id, name, quantity, category};
+        console.log("Item Created: ", item);
+        
+        onAddItem(item);
+
+        setName("");
+        setQuantity(1);
+        setCategory("produce");
+    }
 
 return (
     <main>
-        <div className="min-h-screen bg-pink-50 flex items-center justify-center">
+        <div className="min-h-screen bg-pink-50 flex events-center justify-center">
             <form>
                 <div className="w-full max-w-md bg-pink-200 p-8 rounded-lg shadow-md">
                     <label className="block mb-4">
@@ -49,7 +47,7 @@ return (
                             required
                             type="text"
                             value={name}
-                            onChange={(item) => setName (item.target.value)}
+                            onChange={(event) => setName (event.target.value)}
                             className="mt-1 p-1 block w-full rounded-md text-black bg-white focus:bg-pink-50"
 
                         />
@@ -63,7 +61,7 @@ return (
                             min={1}
                             max={99}
                             value={quantity}
-                            onChange={(item) => setQuantity (item.target.value)}
+                            onChange={(event) => setQuantity (event.target.value)}
                             className="mt-1 p-1 block w-full rounded-md text-black bg-white focus:bg-pink-50"
                         />
                     </label>
@@ -72,7 +70,7 @@ return (
                         <span className="text-gray-800">Category:</span>
                         <select
                             value={category}
-                            onChange={(item) => setCategory (item.target.value)}
+                            onChange={(event) => setCategory (event.target.value)}
                             className="mt-1 p-1 block w-full rounded-md text-black bg-white focus:bg-pink-50"
                         >
                             <option value="produce">Produce</option>
